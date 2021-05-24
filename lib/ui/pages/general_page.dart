@@ -146,9 +146,24 @@ class _GeneralPageState extends State<GeneralPage> {
                 SizedBox(height: userController.login ? 1 : 0),
                 ListTile(
                   tileColor: blue,
-                  title: Text('Contact', style: whiteFontStyle),
+                  title: Text('About Us', style: whiteFontStyle),
                   onTap: () {
                     int index = userController.login ? 3 : 2;
+                    if (widget.isHome) {
+                      setState(() => widget.isHome = true);
+                      widget.scrollController.scrollToIndex(index,
+                          preferPosition: AutoScrollPosition.middle);
+                    } else {
+                      Get.toNamed("/?index=$index");
+                    }
+                  },
+                ),
+                SizedBox(height: 1),
+                ListTile(
+                  tileColor: blue,
+                  title: Text('Contact', style: whiteFontStyle),
+                  onTap: () {
+                    int index = userController.login ? 4 : 3;
                     if (widget.isHome) {
                       setState(() => widget.isHome = true);
                       widget.scrollController.scrollToIndex(index,
@@ -285,8 +300,23 @@ class _GeneralPageState extends State<GeneralPage> {
                                     Get.toNamed('/?index=2');
                                   }
                                   break;
-                                case 'Contact':
+                                case 'About Us':
                                   int index = userController.login ? 3 : 2;
+                                  if (widget.isHome) {
+                                    setState(() {
+                                      widget.isHome = true;
+                                      selectedIndex = index;
+                                    });
+                                    widget.scrollController.scrollToIndex(
+                                      index,
+                                      preferPosition: AutoScrollPosition.middle,
+                                    );
+                                  } else {
+                                    Get.toNamed('/?index=$index');
+                                  }
+                                  break;
+                                case 'Contact':
+                                  int index = userController.login ? 4 : 3;
                                   if (widget.isHome) {
                                     setState(() {
                                       widget.isHome = true;

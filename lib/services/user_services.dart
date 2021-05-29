@@ -8,14 +8,14 @@ class UserServices {
     } else {
       try {
         await userRef.doc(user.email).set({
-          'id': user.email,
+          'id': user.id,
           'name': user.name,
           'email': user.email,
           'password': user.password,
           'phone': user.phone,
           'address': user.address,
           'city': user.city,
-          'level': 'user',
+          'level': user.level,
         });
         return ApiReturnValue(value: user, message: 'Welcome');
       } catch (e) {

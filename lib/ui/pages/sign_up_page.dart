@@ -197,12 +197,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           } else {
                             bool result = await userController.signUp(
                               User(
+                                id: emailController.text.trim(),
                                 name: nameController.text,
                                 email: emailController.text.trim(),
                                 password: passController.text.trim(),
                                 phone: phoneController.text.trim(),
                                 address: addressController.text,
                                 city: selectedCity,
+                                level: 'user',
                               ),
                             );
 

@@ -14,7 +14,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   @override
   void initState() {
     super.initState();
-    status = ['Pending', 'Cancelled', 'On Process', 'On Delivery', 'Delivery'];
+    status = ['Pending', 'Cancelled', 'On Process', 'On Delivery', 'Delivered'];
     selectedItem = (order.status == OrderStatus.pending)
         ? status[0]
         : (order.status == OrderStatus.cancelled)
@@ -188,14 +188,14 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                       child: Text('UPDATE'),
                       onPressed: () async {
                         bool result = await orderController.updateStatus(
-                            order.id, selectedItem);
+                            order.id, selectedItem.toUpperCase());
 
                         String msg = orderController.message;
 
                         if (result) {
                           Toast.show(msg, context,
                               backgroundColor: green, duration: 2);
-                          Get.back();
+                          Get.toNamed('/admin', arguments: 3);
                         } else {
                           Toast.show(msg, context,
                               backgroundColor: red, duration: 2);

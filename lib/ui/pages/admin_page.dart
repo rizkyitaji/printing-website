@@ -28,9 +28,22 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      mobile: mobileView(),
-      desktop: desktopView(),
+    return WillPopScope(
+      onWillPop: () async {
+        if (widget.isNotHome) {
+          Get.toNamed(
+            '/admin',
+            arguments: widget.index,
+          );
+          return true;
+        } else {
+          return false;
+        }
+      },
+      child: Screen(
+        mobile: mobileView(),
+        desktop: desktopView(),
+      ),
     );
   }
 

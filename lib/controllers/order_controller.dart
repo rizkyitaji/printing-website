@@ -91,6 +91,7 @@ class OrderController extends GetxController {
 
     if (result.value != null) {
       update();
+      message = result.message;
       return result.value;
     } else {
       message = result.message;

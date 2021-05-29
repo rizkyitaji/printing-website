@@ -156,7 +156,7 @@ class CheckoutPage extends StatelessWidget {
                     orderController.clear();
                     Toast.show(msg, context,
                         backgroundColor: green, duration: 2);
-                    Get.offNamed('/?index=3');
+                    Get.toNamed('/?index=2');
                   } else {
                     Toast.show(msg, context, backgroundColor: red, duration: 2);
                   }

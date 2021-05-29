@@ -4,7 +4,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralPage(
-      index: 4,
+      index: 5,
       child: ListView(
         children: [
           SizedBox(height: Screen.small(context) ? 0 : 80),

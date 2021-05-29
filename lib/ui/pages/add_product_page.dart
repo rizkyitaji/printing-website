@@ -87,7 +87,7 @@ class _AddProductPageState extends State<AddProductPage> {
                         if (result != null) {
                           Toast.show(msg, context,
                               backgroundColor: green, duration: 2);
-                          Get.back();
+                          Get.toNamed('/admin', arguments: 2);
                         } else {
                           Toast.show(msg, context,
                               backgroundColor: red, duration: 2);

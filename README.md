@@ -6,6 +6,7 @@
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
+* [Usage](#usage)
 * [Project Status](#project-status)
 <!-- * [Contact](#contact) -->
 
@@ -29,6 +30,18 @@
 - Admin Page
 
   ![Admin](https://user-images.githubusercontent.com/83572055/119619393-24329580-be2e-11eb-9a0e-56526a1dea21.png)
+
+## Usage
+`Android`
+  - Create firebase project
+  - Connect firebase to android app
+  - Download google-service.json
+  - Place it at project_name/android/app/ directory
+  
+`Website`
+  - Create firebase project
+  - Connect firebase to web app
+  - Copy firebase config to index.html at project_name/web/ directory
 
 ## Project Status
 Project is : _In Progress_.

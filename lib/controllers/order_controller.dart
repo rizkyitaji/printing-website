@@ -3,8 +3,7 @@ part of 'controllers.dart';
 class OrderController extends GetxController {
   List<Order> orders = [];
   Rx<int> quantity = 100.obs;
-  Rx<int> total1 = 0.obs;
-  Rx<int> total2 = 0.obs;
+  Rx<int> total = 0.obs;
   final _count = 0.obs;
   String message;
 
@@ -14,8 +13,7 @@ class OrderController extends GetxController {
   void clear() {
     _count.value = 0;
     quantity.value = 100;
-    total1.value = 0;
-    total2.value = 0;
+    total.value = 0;
   }
 
   void minOrder() {
@@ -28,10 +26,9 @@ class OrderController extends GetxController {
     update();
   }
 
-  String totalPrice(int price1, int price2) {
-    total1.value = quantity.value * price1;
-    total2.value = quantity.value * price2;
-    return 'Total Price : IDR ${total1.value} - ${total2.value}';
+  String totalPrice(int price) {
+    total.value = quantity.value * price;
+    return Currency.format(total.value);
   }
 
   Future<bool> submitOrder(Order order) async {

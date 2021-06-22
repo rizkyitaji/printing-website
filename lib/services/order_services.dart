@@ -3,13 +3,13 @@ part of 'services.dart';
 class OrderServices {
   static Future<ApiReturnValue<Order>> submitOrder(Order order) async {
     String id = '${order.user.email}_${order.date.millisecondsSinceEpoch}';
+
     try {
       orderRef.doc(id).set({
         'id': id,
         'product': order.product.toMap(),
         'quantity': order.quantity,
-        'total1': order.total1,
-        'total2': order.total2,
+        'total': order.total,
         'date': order.date.millisecondsSinceEpoch,
         'user': order.user.toMap(),
         'status': 'PENDING',
@@ -29,7 +29,7 @@ class OrderServices {
   static Future<ApiReturnValue<List<Order>>> getOrders() async {
     try {
       List<Order> orders = await orderRef.get().then((value) {
-        return value.docs.map((e) => Order.fromDocSnapshot(e)).toList();
+        return value.docs.map((e) => Order.fromSnapshot(e)).toList();
       });
       return ApiReturnValue(value: orders);
     } catch (e) {
@@ -39,7 +39,7 @@ class OrderServices {
 
   static Future<ApiReturnValue<List<Order>>> search(String text) async {
     List<Order> orders = await orderRef.get().then((value) {
-      return value.docs.map((e) => Order.fromDocSnapshot(e)).toList();
+      return value.docs.map((e) => Order.fromSnapshot(e)).toList();
     });
 
     List<Order> query = orders

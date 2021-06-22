@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of 'utils.dart';
 
 class Screen extends StatelessWidget {
   final Widget mobile;
@@ -16,7 +16,7 @@ class Screen extends StatelessWidget {
   }
 
   static bool small(BuildContext context) {
-    return MediaQuery.of(context).size.width < 800;
+    return MediaQuery.of(context).size.width < 860;
   }
 
   static bool medium(BuildContext context) {

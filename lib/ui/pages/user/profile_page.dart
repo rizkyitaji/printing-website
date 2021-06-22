@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: defMargin),
           OrderPage(),
           SizedBox(height: defMargin),
-          footerSection,
+          Footer(),
         ],
       ),
     );

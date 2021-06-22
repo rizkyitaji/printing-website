@@ -4,7 +4,7 @@ class ProfileServices {
   static Future<ApiReturnValue<Profile>> getProfile() async {
     try {
       Profile profile = await profileRef.get().then((value) {
-        return Profile.fromDocSnapshot(value.docs.first);
+        return Profile.fromSnapshot(value.docs.first);
       });
       return ApiReturnValue(value: profile);
     } catch (e) {

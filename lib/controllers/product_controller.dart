@@ -2,14 +2,19 @@ part of 'controllers.dart';
 
 class ProductController extends GetxController {
   List<Product> products = [];
+  final _option = Option().obs;
   final _count = 0.obs;
   String message;
 
   int get count => this._count.value;
   set count(int value) => this._count.value = value;
 
+  Option get option => this._option.value;
+  set option(Option value) => this._option.value = value;
+
   void clear() {
     products = [];
+    option = Option();
     _count.value = 0;
   }
 

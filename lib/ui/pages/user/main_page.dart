@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> {
                               : (index == 2 ? AboutUsPage() : ContactPage()),
                 );
               }),
-              footerSection
+              Footer()
             ],
           );
         }),

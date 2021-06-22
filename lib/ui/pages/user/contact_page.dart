@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class ContactPage extends StatefulWidget {
   @override

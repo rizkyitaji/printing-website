@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class UserListPage extends StatefulWidget {
   @override

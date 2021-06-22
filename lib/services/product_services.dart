@@ -10,10 +10,8 @@ class ProductServices {
         (value) => value.set({
           'id': value.id,
           'name': product.name,
-          'description': product.description,
           'picturePath': result.value,
-          'price1': product.price1,
-          'price2': product.price2,
+          'options': product.toListOfMap(),
         }),
       );
       return ApiReturnValue(value: product, message: 'New product added!');
@@ -25,7 +23,7 @@ class ProductServices {
   static Future<ApiReturnValue<List<Product>>> getProducts() async {
     try {
       List<Product> products = await productRef.get().then((value) {
-        return value.docs.map((e) => Product.fromDocSnapshot(e)).toList();
+        return value.docs.map((e) => Product.fromSnapshot(e)).toList();
       });
       return ApiReturnValue(value: products);
     } catch (e) {
@@ -35,7 +33,7 @@ class ProductServices {
 
   static Future<ApiReturnValue<List<Product>>> search(String text) async {
     List<Product> orders = await productRef.get().then((value) {
-      return value.docs.map((e) => Product.fromDocSnapshot(e)).toList();
+      return value.docs.map((e) => Product.fromSnapshot(e)).toList();
     });
 
     List<Product> query = orders

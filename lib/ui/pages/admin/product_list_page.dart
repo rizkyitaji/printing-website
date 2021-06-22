@@ -1,14 +1,13 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
-class OrderListPage extends StatefulWidget {
+class ProductListPage extends StatefulWidget {
   @override
-  _OrderListPageState createState() => _OrderListPageState();
+  _ProductListPageState createState() => _ProductListPageState();
 }
 
-class _OrderListPageState extends State<OrderListPage> {
+class _ProductListPageState extends State<ProductListPage> {
   TextEditingController searchController = TextEditingController();
   bool isNotEmpty = false;
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +19,13 @@ class _OrderListPageState extends State<OrderListPage> {
           child: Row(
             children: [
               Icon(
-                Icons.list_alt,
+                Icons.view_list,
                 size: Screen.isMobile(context) ? 22 : 40,
                 color: blue,
               ),
               SizedBox(width: 16),
               Text(
-                'Orders',
+                'Products',
                 style: poppins.copyWith(
                   fontSize: Screen.isMobile(context) ? 14 : 28,
                   color: blue,
@@ -54,7 +53,7 @@ class _OrderListPageState extends State<OrderListPage> {
               suffixIcon: InkWell(
                 onTap: () {
                   searchController.text = '';
-                  orderController.getOrders();
+                  productController.getProducts();
                   setState(() => isNotEmpty = false);
                   FocusScope.of(context).requestFocus(new FocusNode());
                 },
@@ -65,26 +64,15 @@ class _OrderListPageState extends State<OrderListPage> {
             ),
             onChanged: (value) {
               if (value.isNotEmpty) {
-                orderController.search(searchController.text);
+                productController.search(searchController.text);
                 setState(() => isNotEmpty = true);
               } else {
-                orderController.getOrders();
+                productController.getProducts();
                 setState(() => isNotEmpty = false);
               }
             },
           ),
         ),
-        // SizedBox(height: defMargin),
-        // filter
-        // Container(
-        //   child: CustomTabBar(
-        //     titles: ['New Order', 'In Progress', 'Past Order'],
-        //     selectedIndex: selectedIndex,
-        //     onTap: (index) {
-        //       setState(() => selectedIndex = index);
-        //     },
-        //   ),
-        // ),
         // list
         Container(
           margin: EdgeInsets.all(Screen.isMobile(context) ? defMargin : 40),
@@ -93,28 +81,28 @@ class _OrderListPageState extends State<OrderListPage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: GetBuilder<OrderController>(
-            init: OrderController(),
+          child: GetBuilder<ProductController>(
+            init: ProductController(),
             builder: (state) {
-              if (state.orders.length != 0) {
+              if (state.products.length != 0) {
                 return Column(
-                  children: state.orders
+                  children: state.products
                       .map((e) => Padding(
                             padding: EdgeInsets.only(
-                              bottom: e == state.orders.last ? 0 : 10,
+                              bottom: e == state.products.last ? 0 : defMargin,
                             ),
                             child: InkWell(
                               onTap: () =>
-                                  Get.toNamed('/detailOrder', arguments: e),
-                              child: OrderListItem(e),
+                                  Get.toNamed('/detailProduct', arguments: e),
+                              child: ProductListItem(e),
                             ),
                           ))
                       .toList(),
                 );
               } else {
                 return isNotEmpty
-                    ? IllustrationPage('Order not found')
-                    : IllustrationPage('No orders');
+                    ? IllustrationPage('Product not found')
+                    : IllustrationPage('No products');
               }
             },
           ),

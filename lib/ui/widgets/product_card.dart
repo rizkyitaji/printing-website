@@ -43,10 +43,14 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Container(
+            width: double.infinity,
             margin: EdgeInsets.only(left: 12),
             child: Text(
-              'IDR  ${product.price1} - ${product.price2}',
+              Currency.format(product.options.first.price) +
+                  ' - ' +
+                  Currency.format(product.options.last.price),
               style: poppins,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

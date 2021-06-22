@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         SizedBox(height: defMargin),
-        footerSection,
+        Footer(),
       ],
     );
   }

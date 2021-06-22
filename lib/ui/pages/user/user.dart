@@ -1,0 +1,24 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:printing/controllers/controllers.dart';
+import 'package:printing/models/models.dart';
+import 'package:printing/services/services.dart';
+import 'package:printing/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:printing/ui/widgets/widgets.dart';
+import 'package:get/get.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+part 'general_page.dart';
+part 'main_page.dart';
+part 'product_page.dart';
+part 'order_page.dart';
+part 'about_us_page.dart';
+part 'contact_page.dart';
+part 'profile_page.dart';
+part 'slider_page.dart';
+part 'detail_page.dart';
+part 'checkout_page.dart';
+part 'payment_page.dart';

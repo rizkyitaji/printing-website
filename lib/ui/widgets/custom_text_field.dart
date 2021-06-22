@@ -15,12 +15,14 @@ class CustomTextField extends StatefulWidget {
   final bool password;
   final bool email;
   final int maxLines;
+  final Color borderColor;
+  final Color boxColor;
   bool obscureText;
   bool validator;
 
   CustomTextField({
     @required this.controller,
-    this.action,
+    this.action = TextInputAction.next,
     this.type,
     this.caps = TextCapitalization.none,
     this.marginTop = 0,
@@ -32,6 +34,8 @@ class CustomTextField extends StatefulWidget {
     this.password = false,
     this.email = false,
     this.maxLines = 1,
+    this.borderColor,
+    this.boxColor,
     this.obscureText = false,
     this.validator = false,
   });
@@ -56,8 +60,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: Colors.lightBlue[50],
+            color: widget.boxColor ?? Colors.lightBlue[50],
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: widget.borderColor ?? Colors.transparent),
           ),
           child: TextField(
             controller: widget.controller,
@@ -78,10 +83,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ? InkWell(
                       onTap: () {
                         if (widget.obscureText == true) {
-                          setState(() => widget.obscureText = false);
+                          widget.obscureText = false;
                         } else {
-                          setState(() => widget.obscureText = true);
+                          widget.obscureText = true;
                         }
+                        setState(() {});
                       },
                       child: Icon(
                         widget.obscureText

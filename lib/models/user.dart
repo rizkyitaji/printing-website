@@ -21,29 +21,41 @@ class User extends Equatable {
     this.level,
   });
 
-  factory User.fromDocSnapshot(DocumentSnapshot data) {
-    return User(
-      id: data['id'],
-      name: data['name'],
-      email: data['email'],
-      password: data['password'],
-      phone: data['phone'],
-      address: data['address'],
-      city: data['city'],
-      level: data['level'],
-    );
+  User copyWith({
+    String id,
+    String name,
+    String email,
+    String password,
+    String phone,
+    String address,
+    String city,
+    String level,
+  }) =>
+      User(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        phone: phone ?? this.phone,
+        address: address ?? this.address,
+        city: city ?? this.city,
+        level: level ?? this.level,
+      );
+
+  factory User.fromSnapshot(DocumentSnapshot snapshot) {
+    return User.fromMap(snapshot.data());
   }
 
-  factory User.fromMap(Map<String, dynamic> data) {
+  factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: data['id'],
-      name: data['name'],
-      email: data['email'],
-      password: data['password'],
-      phone: data['phone'],
-      address: data['address'],
-      city: data['city'],
-      level: data['level'],
+      id: map['id'],
+      name: map['name'],
+      email: map['email'],
+      password: map['password'],
+      phone: map['phone'],
+      address: map['address'],
+      city: map['city'],
+      level: map['level'],
     );
   }
 

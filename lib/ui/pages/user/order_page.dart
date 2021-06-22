@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -33,7 +33,7 @@ class _OrderPageState extends State<OrderPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<Order> orders = snapshot.data.docs
-                    .map((e) => Order.fromDocSnapshot(e))
+                    .map((e) => Order.fromSnapshot(e))
                     .toList();
                 return Column(
                   children: (selectedIndex == 0

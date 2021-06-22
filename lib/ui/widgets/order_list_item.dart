@@ -31,7 +31,7 @@ class OrderListItem extends StatelessWidget {
               ),
               SizedBox(height: 12),
               Text(
-                '${order.quantity} item(s) : IDR ${order.total1} - ${order.total2}',
+                '${order.quantity} item(s) : ' + Currency.format(order.total),
                 style: poppins.copyWith(color: grey, fontSize: 13),
               ),
             ],

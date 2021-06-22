@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class DetailProductPage extends StatelessWidget {
   final Product product = Get.arguments;
@@ -71,14 +71,14 @@ class DetailProductPage extends StatelessWidget {
             Text(product.name, style: poppins.copyWith(fontSize: 24)),
             SizedBox(height: defMargin),
             Text(
-              product.description,
+              'product.description',
               style: poppins,
               maxLines: 10,
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 40),
             Text(
-              'Price : IDR ${product.price1} - ${product.price2}',
+              'Price : IDR {product.price1} - {product.price2}',
               style: poppins.copyWith(fontSize: 18),
             ),
           ],

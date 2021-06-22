@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 // ignore: must_be_immutable
 class GeneralPage extends StatefulWidget {
@@ -368,13 +368,14 @@ class _GeneralPageState extends State<GeneralPage> {
                 child: Text(userController.login ? 'SIGN OUT' : 'SIGN UP',
                     style: whiteFontStyle),
                 onPressed: () {
-                  if (userController.login) {
-                    userController.clear();
-                    orderController.clear();
-                    Get.toNamed('/');
-                  } else {
-                    Get.toNamed('/signup');
-                  }
+                  // if (userController.login) {
+                  //   userController.clear();
+                  //   orderController.clear();
+                  //   Get.toNamed('/');
+                  // } else {
+                  //   Get.toNamed('/signup');
+                  // }
+                  Get.snackbar('title', Get.width.toString());
                 },
               ),
             ),

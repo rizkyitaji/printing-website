@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class AboutUsPage extends StatelessWidget {
   final List<String> image = [

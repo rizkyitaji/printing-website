@@ -33,7 +33,6 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(height: defMargin),
                 CustomTextField(
                   controller: emailController,
-                  action: TextInputAction.next,
                   type: TextInputType.emailAddress,
                   hintText: 'Type your email address',
                   validator: invalidEmail,

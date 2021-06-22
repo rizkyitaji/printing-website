@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/detail', page: () => DetailPage()),
         GetPage(name: '/checkout', page: () => CheckoutPage()),
+        GetPage(name: '/payment', page: () => PaymentPage()),
         GetPage(name: '/admin', page: () => AdminPage()),
         GetPage(name: '/detailUser', page: () => DetailUserPage()),
         GetPage(name: '/detailProduct', page: () => DetailProductPage()),

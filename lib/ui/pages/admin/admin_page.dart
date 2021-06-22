@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class AdminPage extends StatefulWidget {
   final int index;

@@ -1,13 +1,14 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
-class ProductListPage extends StatefulWidget {
+class OrderListPage extends StatefulWidget {
   @override
-  _ProductListPageState createState() => _ProductListPageState();
+  _OrderListPageState createState() => _OrderListPageState();
 }
 
-class _ProductListPageState extends State<ProductListPage> {
+class _OrderListPageState extends State<OrderListPage> {
   TextEditingController searchController = TextEditingController();
   bool isNotEmpty = false;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +20,13 @@ class _ProductListPageState extends State<ProductListPage> {
           child: Row(
             children: [
               Icon(
-                Icons.view_list,
+                Icons.list_alt,
                 size: Screen.isMobile(context) ? 22 : 40,
                 color: blue,
               ),
               SizedBox(width: 16),
               Text(
-                'Products',
+                'Orders',
                 style: poppins.copyWith(
                   fontSize: Screen.isMobile(context) ? 14 : 28,
                   color: blue,
@@ -53,7 +54,7 @@ class _ProductListPageState extends State<ProductListPage> {
               suffixIcon: InkWell(
                 onTap: () {
                   searchController.text = '';
-                  productController.getProducts();
+                  orderController.getOrders();
                   setState(() => isNotEmpty = false);
                   FocusScope.of(context).requestFocus(new FocusNode());
                 },
@@ -64,15 +65,26 @@ class _ProductListPageState extends State<ProductListPage> {
             ),
             onChanged: (value) {
               if (value.isNotEmpty) {
-                productController.search(searchController.text);
+                orderController.search(searchController.text);
                 setState(() => isNotEmpty = true);
               } else {
-                productController.getProducts();
+                orderController.getOrders();
                 setState(() => isNotEmpty = false);
               }
             },
           ),
         ),
+        // SizedBox(height: defMargin),
+        // filter
+        // Container(
+        //   child: CustomTabBar(
+        //     titles: ['New Order', 'In Progress', 'Past Order'],
+        //     selectedIndex: selectedIndex,
+        //     onTap: (index) {
+        //       setState(() => selectedIndex = index);
+        //     },
+        //   ),
+        // ),
         // list
         Container(
           margin: EdgeInsets.all(Screen.isMobile(context) ? defMargin : 40),
@@ -81,28 +93,28 @@ class _ProductListPageState extends State<ProductListPage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: GetBuilder<ProductController>(
-            init: ProductController(),
+          child: GetBuilder<OrderController>(
+            init: OrderController(),
             builder: (state) {
-              if (state.products.length != 0) {
+              if (state.orders.length != 0) {
                 return Column(
-                  children: state.products
+                  children: state.orders
                       .map((e) => Padding(
                             padding: EdgeInsets.only(
-                              bottom: e == state.products.last ? 0 : defMargin,
+                              bottom: e == state.orders.last ? 0 : 10,
                             ),
                             child: InkWell(
                               onTap: () =>
-                                  Get.toNamed('/detailProduct', arguments: e),
-                              child: ProductListItem(e),
+                                  Get.toNamed('/detailOrder', arguments: e),
+                              child: OrderListItem(e),
                             ),
                           ))
                       .toList(),
                 );
               } else {
                 return isNotEmpty
-                    ? IllustrationPage('Product not found')
-                    : IllustrationPage('No products');
+                    ? IllustrationPage('Order not found')
+                    : IllustrationPage('No orders');
               }
             },
           ),

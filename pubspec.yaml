@@ -33,8 +33,8 @@ dependencies:
   get: ^4.1.4
   google_fonts: ^2.0.0
   image_picker: ^0.7.4
+  intl: ^0.17.0
   scroll_to_index: ^2.0.0
-  shared_preferences: ^2.0.5
   supercharged: ^2.0.0
   toast: ^0.1.5
   url_launcher: ^6.0.3

@@ -27,7 +27,9 @@ class ProductListItem extends StatelessWidget {
               Text(product.name, style: poppins.copyWith(fontSize: 16)),
               SizedBox(height: 12),
               Text(
-                'IDR ${product.price1} - ${product.price2}',
+                Currency.format(product.options.first.price) +
+                    ' - ' +
+                    Currency.format(product.options.last.price),
                 style: poppins.copyWith(color: grey),
               ),
             ],

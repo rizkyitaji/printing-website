@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:printing/models/models.dart';
 import 'package:printing/services/services.dart';
+import 'package:printing/utils/utils.dart';
 
 part 'user_controller.dart';
 part 'product_controller.dart';

@@ -7,6 +7,7 @@ class Profile extends Equatable {
   final String phone;
   final String email;
   final String address;
+  final String bankAccount;
 
   Profile({
     this.name,
@@ -15,30 +16,22 @@ class Profile extends Equatable {
     this.phone,
     this.email,
     this.address,
+    this.bankAccount,
   });
 
-  factory Profile.fromDocSnapshot(DocumentSnapshot data) {
+  factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
     return Profile(
-      name: data['name'],
-      description: data['description'],
-      picturePath: data['picturePath'],
-      phone: data['phone'],
-      email: data['email'],
-      address: data['address'],
+      name: snapshot['name'],
+      description: snapshot['description'],
+      picturePath: snapshot['picturePath'],
+      phone: snapshot['phone'],
+      email: snapshot['email'],
+      address: snapshot['address'],
+      bankAccount: snapshot['bankAccount'],
     );
   }
 
   @override
   List<Object> get props =>
-      [name, description, picturePath, phone, email, address];
-}
-
-class Client extends Equatable {
-  final String id;
-  final String picturePath;
-
-  Client({this.id, this.picturePath});
-
-  @override
-  List<Object> get props => [id, picturePath];
+      [name, description, picturePath, phone, email, address, bankAccount];
 }

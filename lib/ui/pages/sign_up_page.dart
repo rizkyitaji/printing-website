@@ -54,7 +54,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             marginLeft: 12,
                             controller: nameController,
-                            action: TextInputAction.next,
                             hintText: 'Type your full name',
                             validator: invalidName,
                           ),
@@ -70,7 +69,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             marginLeft: 12,
                             controller: emailController,
-                            action: TextInputAction.next,
                             type: TextInputType.emailAddress,
                             hintText: 'Type your email address',
                             validator: invalidEmail,
@@ -88,7 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             marginLeft: 12,
                             controller: passController,
-                            action: TextInputAction.next,
                             hintText: 'Type your password',
                             validator: invalidPass,
                             obscureText: true,
@@ -106,7 +103,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             marginLeft: 12,
                             controller: phoneController,
-                            action: TextInputAction.next,
                             type: TextInputType.number,
                             hintText: 'Type your phone number',
                             validator: invalidPhone,

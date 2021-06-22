@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class CompanyProfilePage extends StatefulWidget {
   @override

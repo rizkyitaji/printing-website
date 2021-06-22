@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class IllustrationPage extends StatelessWidget {
   final String text;

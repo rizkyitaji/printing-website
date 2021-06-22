@@ -32,7 +32,7 @@ class UserServices {
         return ApiReturnValue(message: 'Wrong email address');
       } else {
         if (password.compareTo(value.get('password')) == 0) {
-          User user = User.fromDocSnapshot(value);
+          User user = User.fromSnapshot(value);
           return ApiReturnValue(value: user, message: 'Welcome');
         } else {
           return ApiReturnValue(message: 'Incorrect password');
@@ -52,7 +52,7 @@ class UserServices {
   static Future<ApiReturnValue<List<User>>> getUsers() async {
     try {
       List<User> users = await userRef.get().then((value) {
-        return value.docs.map((e) => User.fromDocSnapshot(e)).toList();
+        return value.docs.map((e) => User.fromSnapshot(e)).toList();
       });
       return ApiReturnValue(value: users);
     } catch (e) {
@@ -62,7 +62,7 @@ class UserServices {
 
   static Future<ApiReturnValue<List<User>>> search(String text) async {
     List<User> users = await userRef.get().then((value) {
-      return value.docs.map((e) => User.fromDocSnapshot(e)).toList();
+      return value.docs.map((e) => User.fromSnapshot(e)).toList();
     });
 
     List<User> query = users

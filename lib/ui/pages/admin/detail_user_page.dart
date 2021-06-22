@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class DetailUserPage extends StatelessWidget {
   final User user = Get.arguments;

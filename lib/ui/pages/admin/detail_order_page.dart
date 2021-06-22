@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class DetailOrderPage extends StatefulWidget {
   @override
@@ -104,13 +104,13 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
           children: [
             Text(order.product.name, style: poppins.copyWith(fontSize: 24)),
             Text(
-              order.product.description,
+              'order.product.description',
               maxLines: 3,
               style: poppins.copyWith(color: Colors.black),
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'Total Order  :  ${order.quantity} item(s) / ${order.total1} - ${order.total2}',
+              'Total Order  :  ${order.quantity} item(s) / {order.total1} - {order.total2}',
               style: poppins.copyWith(fontSize: 16),
             ),
             Row(

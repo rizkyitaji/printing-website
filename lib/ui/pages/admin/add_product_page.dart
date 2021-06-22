@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'admin.dart';
 
 class AddProductPage extends StatefulWidget {
   @override
@@ -75,9 +75,9 @@ class _AddProductPageState extends State<AddProductPage> {
                         bool result = await productController.addProduct(
                           Product(
                             name: nameController.text,
-                            description: descController.text,
-                            price1: int.parse(price1Controller.text),
-                            price2: int.parse(price2Controller.text),
+                            // description: descController.text,
+                            // price1: int.parse(price1Controller.text),
+                            // price2: int.parse(price2Controller.text),
                           ),
                           imageFile,
                         );
@@ -156,7 +156,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 Expanded(
                   child: CustomTextField(
                     controller: nameController,
-                    action: TextInputAction.next,
                     caps: TextCapitalization.words,
                     hintText: "Type your product's name",
                     validator: invalidName,

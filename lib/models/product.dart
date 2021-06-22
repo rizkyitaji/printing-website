@@ -3,39 +3,47 @@ part of 'models.dart';
 class Product extends Equatable {
   final String id;
   final String name;
-  final String description;
   final String picturePath;
-  final int price1;
-  final int price2;
+  final List<Option> options;
+  final Option option;
 
   Product({
     this.id,
     this.name,
-    this.description,
     this.picturePath,
-    this.price1,
-    this.price2,
+    this.options,
+    this.option,
   });
 
-  factory Product.fromDocSnapshot(DocumentSnapshot data) {
-    return Product(
-      id: data['id'],
-      name: data['name'],
-      description: data['description'],
-      picturePath: data['picturePath'],
-      price1: data['price1'],
-      price2: data['price2'],
-    );
+  Product copyWith({
+    String id,
+    String name,
+    String picturePath,
+    List<Option> options,
+    Option option,
+  }) =>
+      Product(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        picturePath: picturePath ?? this.picturePath,
+        options: options ?? this.options,
+        option: option ?? this.option,
+      );
+
+  factory Product.fromSnapshot(DocumentSnapshot snapshot) {
+    return Product.fromMap(snapshot.data());
   }
 
-  factory Product.fromMap(Map<String, dynamic> data) {
+  factory Product.fromMap(Map<String, dynamic> map) {
+    List<Map> optionList = map['options'].cast<Map>();
+    var options = optionList.map((e) => Option.fromMap(e)).toList();
+
     return Product(
-      id: data['id'],
-      name: data['name'],
-      description: data['description'],
-      picturePath: data['picturePath'],
-      price1: data['price1'],
-      price2: data['price2'],
+      id: map['id'],
+      name: map['name'],
+      picturePath: map['picturePath'],
+      options: options,
+      option: map['option'] != null ? Option.fromMap(map['option']) : Option(),
     );
   }
 
@@ -43,65 +51,49 @@ class Product extends Equatable {
     return {
       'id': this.id,
       'name': this.name,
-      'description': this.description,
       'picturePath': this.picturePath,
-      'price1': this.price1,
-      'price2': this.price2,
+      'options': toListOfMap(),
+      'option': this.option.toMap(),
+    };
+  }
+
+  List<Map<String, dynamic>> toListOfMap() {
+    List<Map<String, dynamic>> optionList = [];
+    this.options.forEach((element) {
+      optionList.add(element.toMap());
+    });
+    return optionList;
+  }
+
+  @override
+  List<Object> get props => [id, name, picturePath, options];
+}
+
+enum Options { one, two, three }
+
+class Option extends Equatable {
+  final int id;
+  final String variant;
+  final int price;
+
+  Option({this.id, this.variant, this.price});
+
+  factory Option.fromMap(Map<String, dynamic> map) {
+    return Option(
+      id: map['id'],
+      variant: map['variant'],
+      price: map['price'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'variant': this.variant,
+      'price': this.price,
     };
   }
 
   @override
-  List<Object> get props =>
-      [id, name, description, picturePath, price1, price2];
+  List<Object> get props => [id, price];
 }
-
-List<Product> products = [
-  Product(
-    id: '1',
-    name: 'Brosur',
-    description: lorem,
-    picturePath: 'assets/brosur.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-  Product(
-    id: '2',
-    name: 'Buku Laporan',
-    description: lorem,
-    picturePath: 'assets/buku_laporan.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-  Product(
-    id: '3',
-    name: 'Agenda Kerja',
-    description: lorem,
-    picturePath: 'assets/agenda_kerja.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-  Product(
-    id: '4',
-    name: 'Notes',
-    description: lorem,
-    picturePath: 'assets/notes.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-  Product(
-    id: '5',
-    name: 'Map / Cover',
-    description: lorem,
-    picturePath: 'assets/map_cover.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-  Product(
-    id: '6',
-    name: 'Paper Bag',
-    description: lorem,
-    picturePath: 'assets/paper_bag.jpg',
-    price1: 20000,
-    price2: 50000,
-  ),
-];

@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class SliderPage extends StatefulWidget {
   @override

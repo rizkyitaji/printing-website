@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class DetailPage extends StatelessWidget {
   final Order order =
@@ -37,7 +37,7 @@ class DetailPage extends StatelessWidget {
               ],
             ),
           ),
-          footerSection,
+          Footer(),
         ],
       ),
     );
@@ -56,26 +56,25 @@ class DetailPage extends StatelessWidget {
           ),
         ),
       ),
-      SizedBox(width: defMargin),
+      SizedBox(width: 40),
       SizedBox(
-        width: Screen.small(context) ? double.infinity : context.width - 472,
+        width: Screen.small(context) ? double.infinity : context.width - 488,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height:
-                  context.width >= 800 && context.width < 930 ? 0 : defMargin,
+                  context.width >= 860 && context.width < 1000 ? 0 : defMargin,
             ),
             Text(product.name, style: poppins.copyWith(fontSize: 24)),
             SizedBox(height: defMargin),
-            Text(
-              product.description,
-              style: poppins,
-              maxLines: context.width >= 800 && context.width < 930 ? 4 : 10,
-              overflow: TextOverflow.ellipsis,
+            OptionListItem(
+              tag: detail,
+              product: detail == 'order' ? order.product : product,
             ),
             SizedBox(height: 40),
-            context.width >= 800 && context.width < 930
+            context.width >= 860 && context.width < 1000 ||
+                    Screen.isMobile(context)
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: price(context),
@@ -91,15 +90,23 @@ class DetailPage extends StatelessWidget {
   }
 
   List<Widget> price(BuildContext context) {
-    int price1 = detail == 'order' ? order.total1 : product.price1;
-    int price2 = detail == 'order' ? order.total2 : product.price2;
     return [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Price : IDR $price1 - $price2',
-            style: poppins.copyWith(fontSize: 18),
+          Row(
+            children: [
+              Text('Price', style: poppins.copyWith(fontSize: 18)),
+              SizedBox(width: 16),
+              colon,
+              SizedBox(width: 16),
+              Text(
+                detail == 'order'
+                    ? '${Currency.format(order.product.option.price)}'
+                    : '${Currency.format(product.options.first.price)} - ${Currency.format(product.options.last.price)}',
+                style: poppins.copyWith(fontSize: 18),
+              ),
+            ],
           ),
           SizedBox(height: detail == 'order' ? defMargin : 0),
           detail == 'order'
@@ -126,13 +133,22 @@ class DetailPage extends StatelessWidget {
               height: 45,
               margin: EdgeInsets.only(
                 right: 40,
-                top:
-                    context.width >= 800 && context.width < 930 ? defMargin : 0,
+                top: context.width >= 860 && context.width < 1000 ||
+                        Screen.isMobile(context)
+                    ? defMargin
+                    : 0,
               ),
               child: ElevatedButton(
                 style: mainButtonStyle,
                 child: Text('ORDER'),
-                onPressed: () => Get.toNamed('/checkout', arguments: product),
+                onPressed: () {
+                  Get.toNamed(
+                    '/checkout',
+                    arguments: product.copyWith(
+                      option: productController.option,
+                    ),
+                  );
+                },
               ),
             )
           : SizedBox(),

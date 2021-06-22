@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of 'user.dart';
 
 class ProductPage extends StatelessWidget {
   @override
@@ -32,8 +32,8 @@ class ProductPage extends StatelessWidget {
                   children: snapshot.data.docs
                       .map((e) => InkWell(
                             onTap: () => Get.toNamed('/detail?detail=product',
-                                arguments: Product.fromDocSnapshot(e)),
-                            child: ProductCard(Product.fromDocSnapshot(e)),
+                                arguments: Product.fromSnapshot(e)),
+                            child: ProductCard(Product.fromSnapshot(e)),
                           ))
                       .toList(),
                 );

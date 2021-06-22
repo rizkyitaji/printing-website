@@ -24,11 +24,6 @@ class UserListItem extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          // InkWell(
-          //   onTap: () {},
-          //   child: Icon(Icons.edit),
-          // ),
-          // SizedBox(width: 12),
           InkWell(
             onTap: () async {
               bool result = await userController.delete(user.email);

@@ -25,6 +25,7 @@ class ProfileServices {
           'phone': profile.phone,
           'email': profile.email,
           'address': profile.address,
+          'bank': profile.bank.toMap(),
         });
       } else {
         profileRef.doc('Company').set({
@@ -33,6 +34,7 @@ class ProfileServices {
           'phone': profile.phone,
           'email': profile.email,
           'address': profile.address,
+          'bank': profile.bank.toMap(),
         });
       }
 

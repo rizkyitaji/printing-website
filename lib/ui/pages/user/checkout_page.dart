@@ -15,6 +15,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
   bool invalidAddress = false;
   bool invalidCity = false;
   bool invalidPhone = false;
+  PickedFile imageFile;
+  String picturePath;
 
   @override
   void initState() {
@@ -61,17 +63,40 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
+  BoxDecoration boxDecoration() {
+    return picturePath != null
+        ? BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.black),
+            image: DecorationImage(
+              image: NetworkImage(picturePath),
+              fit: BoxFit.fill,
+            ),
+          )
+        : BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.black),
+          );
+  }
+
   List<Widget> detailProduct(BuildContext context) {
     return [
-      Container(
-        width: Screen.small(context) ? double.infinity : 250,
-        height: 250,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          image: DecorationImage(
-            image: NetworkImage(product.picturePath),
-            fit: BoxFit.fill,
-          ),
+      InkWell(
+        onTap: () async {
+          imageFile = await ImagePicker().getImage(source: ImageSource.gallery);
+
+          if (imageFile != null) {
+            setState(() => picturePath = imageFile.path);
+          }
+        },
+        child: Container(
+          width: Screen.small(context) ? double.infinity : 250,
+          height: 250,
+          decoration: boxDecoration(),
+          child: picturePath == null
+              ? Icon(Icons.add_circle, size: 60, color: grey)
+              : SizedBox(),
         ),
       ),
       SizedBox(width: 40),
@@ -95,7 +120,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     width: 100,
                     margin: EdgeInsets.only(right: 12),
                     child: Text(
-                      'Price',
+                      'Total Price',
                       style: poppins.copyWith(fontSize: 16),
                     ),
                   ),
@@ -119,7 +144,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                 ),
                 colon,
-                SizedBox(width: 40),
+                SizedBox(width: 12),
                 InkWell(
                   onTap: () => orderController.minOrder(),
                   child: Image.asset(
@@ -209,6 +234,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     setState(() => invalidCity = true);
                   } else if (phoneController.text.isEmpty) {
                     setState(() => invalidPhone = true);
+                  } else if (picturePath == null) {
+                    Toast.show('Please upload your design', context);
                   } else {
                     submitOrder(context);
                   }
@@ -223,28 +250,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   void submitOrder(BuildContext context) async {
     User user = userController.user;
-
-    bool result = await orderController.submitOrder(
-      Order(
-        product: product,
-        quantity: orderController.quantity.value,
-        total: orderController.total.value,
-        date: DateTime.now(),
-        user: user.copyWith(
-          name: nameController.text,
-          address: addressController.text,
-          city: cityController.text,
-          phone: phoneController.text.trim(),
-        ),
+    Order order = Order(
+      product: product,
+      quantity: orderController.quantity.value,
+      total: orderController.total.value,
+      date: DateTime.now(),
+      user: user.copyWith(
+        name: nameController.text,
+        address: addressController.text,
+        city: cityController.text,
+        phone: phoneController.text.trim(),
       ),
     );
+
+    bool result = await orderController.submitOrder(order, imageFile);
 
     String msg = orderController.message;
 
     if (result) {
       orderController.clear();
-      Toast.show(msg, context, backgroundColor: green, duration: 2);
-      Get.toNamed('/?index=2');
+      Get.toNamed('/payment', arguments: order);
     } else {
       Toast.show(msg, context, backgroundColor: red, duration: 2);
     }

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:printing/controllers/controllers.dart';
 import 'package:printing/models/models.dart';
 import 'package:printing/services/services.dart';

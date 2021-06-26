@@ -1,20 +1,24 @@
 part of 'services.dart';
 
 class OrderServices {
-  static Future<ApiReturnValue<Order>> submitOrder(Order order) async {
+  static Future<ApiReturnValue<Order>> submitOrder(
+      Order order, PickedFile file) async {
     String id = '${order.user.email}_${order.date.millisecondsSinceEpoch}';
 
     try {
+      ApiReturnValue<String> result =
+          await ProductServices.uploadImage(file, id);
+
       orderRef.doc(id).set({
         'id': id,
-        'product': order.product.toMap(),
+        'product': order.product.copyWith(picturePath: result.value).toMap(),
         'quantity': order.quantity,
         'total': order.total,
         'date': order.date.millisecondsSinceEpoch,
         'user': order.user.toMap(),
         'status': 'PENDING',
       });
-      return ApiReturnValue(value: order, message: "You've made order");
+      return ApiReturnValue(value: order);
     } catch (e) {
       return ApiReturnValue(message: e);
     }

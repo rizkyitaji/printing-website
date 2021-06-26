@@ -31,8 +31,8 @@ class OrderController extends GetxController {
     return Currency.format(total.value);
   }
 
-  Future<bool> submitOrder(Order order) async {
-    ApiReturnValue<Order> result = await OrderServices.submitOrder(order);
+  Future<bool> submitOrder(Order order, PickedFile file) async {
+    ApiReturnValue<Order> result = await OrderServices.submitOrder(order, file);
 
     if (result.value != null) {
       message = result.message;

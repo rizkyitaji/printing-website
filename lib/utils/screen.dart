@@ -34,7 +34,7 @@ class Screen extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth >= 1300) {
           return desktop;
-        } else if (constraints.maxWidth >= 600) {
+        } else if (constraints.maxWidth >= 860) {
           return tablet ?? desktop;
         } else {
           return mobile;

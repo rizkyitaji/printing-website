@@ -104,6 +104,23 @@ class _AddProductPageState extends State<AddProductPage> {
     );
   }
 
+  BoxDecoration boxDecoration() {
+    return picturePath != null
+        ? BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.black),
+            image: DecorationImage(
+              image: NetworkImage(picturePath),
+              fit: BoxFit.fill,
+            ),
+          )
+        : BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.black),
+          );
+  }
+
   List<Widget> content(BuildContext context) {
     return [
       InkWell(
@@ -114,30 +131,14 @@ class _AddProductPageState extends State<AddProductPage> {
             setState(() => picturePath = imageFile.path);
           }
         },
-        child: picturePath != null
-            ? Container(
-                width: Screen.small(context) ? double.infinity : 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: Colors.black),
-                  image: DecorationImage(
-                    image: NetworkImage(picturePath),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              )
-            : Container(
-                width: Screen.small(context) ? double.infinity : 200,
-                height: 200,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: Colors.black),
-                ),
-                child: Icon(Icons.add_circle, size: 60, color: grey),
-              ),
+        child: Container(
+          width: Screen.small(context) ? double.infinity : 200,
+          height: 200,
+          decoration: boxDecoration(),
+          child: picturePath == null
+              ? Icon(Icons.add_circle, size: 60, color: grey)
+              : SizedBox(),
+        ),
       ),
       SizedBox(width: 40, height: 40),
       SizedBox(

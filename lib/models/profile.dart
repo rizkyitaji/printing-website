@@ -7,7 +7,7 @@ class Profile extends Equatable {
   final String phone;
   final String email;
   final String address;
-  final Bank bank;
+  final BankAccount bankAccount;
 
   Profile({
     this.name,
@@ -16,7 +16,7 @@ class Profile extends Equatable {
     this.phone,
     this.email,
     this.address,
-    this.bank,
+    this.bankAccount,
   });
 
   factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
@@ -27,38 +27,38 @@ class Profile extends Equatable {
       phone: snapshot['phone'],
       email: snapshot['email'],
       address: snapshot['address'],
-      bank: Bank.fromMap(snapshot['bank']),
+      bankAccount: BankAccount.fromMap(snapshot['bankAccount']),
     );
   }
 
   @override
   List<Object> get props =>
-      [name, description, picturePath, phone, email, address, bank];
+      [name, description, picturePath, phone, email, address, bankAccount];
 }
 
-class Bank extends Equatable {
-  final String name;
-  final String account;
+class BankAccount extends Equatable {
+  final String owner;
+  final String number;
 
-  Bank({
-    this.name,
-    this.account,
+  BankAccount({
+    this.owner,
+    this.number,
   });
 
-  factory Bank.fromMap(Map<String, dynamic> map) {
-    return Bank(
-      name: map['name'],
-      account: map['account'],
+  factory BankAccount.fromMap(Map<String, dynamic> map) {
+    return BankAccount(
+      owner: map['owner'],
+      number: map['number'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'name': this.name,
-      'account': this.account,
+      'owner': this.owner,
+      'number': this.number,
     };
   }
 
   @override
-  List<Object> get props => [name, account];
+  List<Object> get props => [owner, number];
 }

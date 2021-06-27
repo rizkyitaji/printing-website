@@ -60,7 +60,7 @@ class _OrderPageState extends State<OrderPage> {
                 );
               } else {
                 return Center(
-                  child: Text('You have not any order yet'),
+                  child: IllustrationPage('You have not any order yet'),
                 );
               }
             },

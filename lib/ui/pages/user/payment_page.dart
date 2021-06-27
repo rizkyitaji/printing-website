@@ -52,7 +52,7 @@ class PaymentPage extends StatelessWidget {
                     ),
                     SizedBox(width: 12),
                     Text(
-                      '${profileController.profile.bank.account} - ${profileController.profile.bank.name}',
+                      '${profileController.profile.bankAccount.number} - ${profileController.profile.bankAccount.owner}',
                       style: poppins.copyWith(color: blue),
                     ),
                   ],

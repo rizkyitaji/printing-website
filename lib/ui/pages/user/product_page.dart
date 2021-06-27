@@ -39,7 +39,7 @@ class ProductPage extends StatelessWidget {
                 );
               } else {
                 return Center(
-                  child: Text('No Products'),
+                  child: IllustrationPage('No Products'),
                 );
               }
             },

@@ -1,5 +1,7 @@
 part of 'admin.dart';
 
+enum Variant { color, size }
+
 class AddProductPage extends StatefulWidget {
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -7,13 +9,31 @@ class AddProductPage extends StatefulWidget {
 
 class _AddProductPageState extends State<AddProductPage> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController descController = TextEditingController();
-  TextEditingController price1Controller = TextEditingController();
-  TextEditingController price2Controller = TextEditingController();
+  TextEditingController variant1Controller = TextEditingController();
+  TextEditingController variant2Controller = TextEditingController();
+  TextEditingController variant3Controller = TextEditingController();
+  Variant _variant = Variant.color;
   bool invalidName = false;
-  bool invalidDesc = false;
   PickedFile imageFile;
   String picturePath;
+  List<String> variants;
+
+  List<String> colorVariant = [
+    '2 colors',
+    '3 or 4 colors',
+    'More than 4 colors',
+  ];
+  List<String> sizeVariant = [
+    '15 x 15 cm',
+    '15 x 15 cm',
+    '15 x 15 cm',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    variants = colorVariant;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +84,41 @@ class _AddProductPageState extends State<AddProductPage> {
                     onPressed: () async {
                       if (nameController.text.isEmpty) {
                         setState(() => invalidName = true);
-                      } else if (descController.text.isEmpty) {
-                        setState(() => invalidDesc = true);
-                      } else if (price1Controller.text.isEmpty ||
-                          price2Controller.text.isEmpty) {
+                      } else if (variant1Controller.text.isEmpty ||
+                          variant2Controller.text.isEmpty ||
+                          variant3Controller.text.isEmpty ||
+                          picturePath == null) {
                         Toast.show('Please fill in all of the fields', context);
-                      } else if (picturePath == null) {
-                        Toast.show('Please fill in all of the fields', context);
+                      } else if (!Check.isAlphanumeric(
+                              variant1Controller.text) ||
+                          !Check.isAlphanumeric(variant2Controller.text) ||
+                          !Check.isAlphanumeric(variant3Controller.text)) {
+                        Toast.show(
+                            'Variant price must contain only number', context);
                       } else {
                         bool result = await productController.addProduct(
                           Product(
                             name: nameController.text,
-                            // description: descController.text,
-                            // price1: int.parse(price1Controller.text),
-                            // price2: int.parse(price2Controller.text),
+                            options: [
+                              Option(
+                                id: 1,
+                                variant: variants[0],
+                                price:
+                                    int.parse(variant1Controller.text.trim()),
+                              ),
+                              Option(
+                                id: 2,
+                                variant: variants[1],
+                                price:
+                                    int.parse(variant2Controller.text.trim()),
+                              ),
+                              Option(
+                                id: 3,
+                                variant: variants[2],
+                                price:
+                                    int.parse(variant3Controller.text.trim()),
+                              ),
+                            ],
                           ),
                           imageFile,
                         );
@@ -145,81 +186,107 @@ class _AddProductPageState extends State<AddProductPage> {
         width: Screen.small(context) ? double.infinity : context.width - 410,
         child: Column(
           children: [
-            Row(
+            CustomForm(
+              field: 'Name',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: nameController,
+                action: TextInputAction.done,
+                caps: TextCapitalization.words,
+                hintText: "Type your product's name",
+                validator: invalidName,
+              ),
+            ),
+            SizedBox(height: 12),
+            CustomForm(
+              field: 'Variant',
               children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Name', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                SizedBox(width: 12),
+                SizedBox(width: 16),
                 Expanded(
-                  child: CustomTextField(
-                    controller: nameController,
-                    caps: TextCapitalization.words,
-                    hintText: "Type your product's name",
-                    validator: invalidName,
+                  child: ListTile(
+                    leading: Radio<Variant>(
+                      value: Variant.color,
+                      groupValue: _variant,
+                      onChanged: (value) {
+                        _variant = value;
+                        variants = colorVariant;
+                        setState(() {});
+                      },
+                    ),
+                    title: Text('Color', style: poppins),
+                  ),
+                ),
+                Expanded(
+                  child: ListTile(
+                    leading: Radio<Variant>(
+                      value: Variant.size,
+                      groupValue: _variant,
+                      onChanged: (value) {
+                        _variant = value;
+                        variants = sizeVariant;
+                        setState(() {});
+                      },
+                    ),
+                    title: Text('Size', style: poppins),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Description', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                SizedBox(width: 12),
-                Expanded(
-                  child: CustomTextField(
-                    maxLines: 5,
-                    controller: descController,
-                    action: TextInputAction.next,
-                    type: TextInputType.multiline,
-                    caps: TextCapitalization.sentences,
-                    hintText: "Type your product's description",
-                    validator: invalidDesc,
-                  ),
-                ),
-              ],
+            SizedBox(height: defMargin),
+            CustomForm(field: "Variant Price"),
+            variant(
+              value: variants[0],
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: variant1Controller,
+                type: TextInputType.number,
+                hintText: 'Type your first variant price',
+              ),
             ),
             SizedBox(height: 12),
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Price', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                SizedBox(width: 12),
-                CustomTextField(
-                  width: 100,
-                  marginRight: 12,
-                  controller: price1Controller,
-                  action: TextInputAction.next,
-                  type: TextInputType.number,
-                  hintText: "0",
-                ),
-                Text('-', style: poppins),
-                CustomTextField(
-                  width: 100,
-                  marginLeft: 12,
-                  controller: price2Controller,
-                  action: TextInputAction.done,
-                  type: TextInputType.number,
-                  hintText: "0",
-                ),
-              ],
+            variant(
+              value: variants[1],
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: variant2Controller,
+                type: TextInputType.number,
+                hintText: 'Type your second variant price',
+              ),
+            ),
+            SizedBox(height: 12),
+            variant(
+              value: variants[2],
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: variant3Controller,
+                type: TextInputType.number,
+                hintText: 'Type your third variant price',
+              ),
             ),
           ],
         ),
       ),
     ];
+  }
+
+  Widget variant({String value, Widget child}) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 18),
+          child: Icon(
+            Icons.lens,
+            size: 16,
+            color: darkBlue,
+          ),
+        ),
+        Expanded(
+          child: CustomForm(
+            field: value,
+            child: child,
+          ),
+        ),
+      ],
+    );
   }
 }

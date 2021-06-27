@@ -11,23 +11,29 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController accountOwnerController = TextEditingController();
+  TextEditingController accountNumberController = TextEditingController();
   bool invalidName = false;
   bool invalidDesc = false;
   bool invalidPhone = false;
   bool invalidEmail = false;
   bool invalidAddress = false;
+  bool invalidAccountOwner = false;
+  bool invalidAccountNumber = false;
   PickedFile imageFile;
   String picturePath;
 
   @override
   void initState() {
     super.initState();
-    picturePath = profileController.profile.picturePath;
-    nameController.text = profileController.profile.name;
-    descController.text = profileController.profile.description;
-    phoneController.text = profileController.profile.phone;
-    emailController.text = profileController.profile.email;
-    addressController.text = profileController.profile.address;
+    // picturePath = profileController.profile.picturePath;
+    // nameController.text = profileController.profile.name;
+    // descController.text = profileController.profile.description;
+    // phoneController.text = profileController.profile.phone;
+    // emailController.text = profileController.profile.email;
+    // addressController.text = profileController.profile.address;
+    // accountOwnerController.text = profileController.profile.bank.name;
+    // bankAccountController.text = profileController.profile.bank.account;
   }
 
   @override
@@ -113,117 +119,84 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
               ),
             ),
             SizedBox(height: defMargin),
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Name', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                Expanded(
-                  child: CustomTextField(
-                    marginLeft: 16,
-                    controller: nameController,
-                    action: TextInputAction.next,
-                    caps: TextCapitalization.words,
-                    hintText: "Type your company name",
-                    validator: invalidName,
-                  ),
-                ),
-              ],
+            CustomForm(
+              field: 'Name',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: nameController,
+                caps: TextCapitalization.words,
+                hintText: "Type your company name",
+                validator: invalidName,
+              ),
             ),
             SizedBox(height: 16),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(top: 4),
-                  child: Text('Description', style: poppins),
-                ),
-                SizedBox(width: 12),
-                Container(
-                  margin: EdgeInsets.only(top: 4),
-                  child: colon,
-                ),
-                Expanded(
-                  child: CustomTextField(
-                    marginLeft: 16,
-                    maxLines: 5,
-                    controller: descController,
-                    action: TextInputAction.next,
-                    type: TextInputType.multiline,
-                    caps: TextCapitalization.sentences,
-                    hintText: "Type your company description",
-                    validator: invalidDesc,
-                  ),
-                ),
-              ],
+            CustomForm(
+              field: 'Description',
+              child: CustomTextField(
+                marginLeft: 16,
+                maxLines: 5,
+                controller: descController,
+                type: TextInputType.multiline,
+                caps: TextCapitalization.sentences,
+                hintText: "Type your company description",
+                validator: invalidDesc,
+              ),
             ),
             SizedBox(height: 16),
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Phone No.', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                Expanded(
-                  child: CustomTextField(
-                    marginLeft: 16,
-                    controller: phoneController,
-                    action: TextInputAction.next,
-                    type: TextInputType.number,
-                    hintText: "Type your company's phone number",
-                    validator: invalidPhone,
-                  ),
-                ),
-              ],
+            CustomForm(
+              field: 'Phone No.',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: phoneController,
+                type: TextInputType.number,
+                hintText: "Type your company's phone number",
+                validator: invalidPhone,
+              ),
             ),
             SizedBox(height: 16),
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Email', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                Expanded(
-                  child: CustomTextField(
-                    marginLeft: 16,
-                    controller: emailController,
-                    action: TextInputAction.next,
-                    type: TextInputType.emailAddress,
-                    hintText: "Type your company email",
-                    validator: invalidEmail,
-                    email: true,
-                  ),
-                ),
-              ],
+            CustomForm(
+              field: 'Email',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: emailController,
+                type: TextInputType.emailAddress,
+                hintText: "Type your company email",
+                validator: invalidEmail,
+                email: true,
+              ),
             ),
             SizedBox(height: 16),
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Address', style: poppins),
-                ),
-                SizedBox(width: 12),
-                colon,
-                Expanded(
-                  child: CustomTextField(
-                    marginLeft: 16,
-                    controller: addressController,
-                    action: TextInputAction.next,
-                    caps: TextCapitalization.words,
-                    hintText: "Type your company address",
-                    validator: invalidAddress,
-                  ),
-                ),
-              ],
+            CustomForm(
+              field: 'Address',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: addressController,
+                caps: TextCapitalization.words,
+                hintText: "Type your company address",
+                validator: invalidAddress,
+              ),
+            ),
+            SizedBox(height: 16),
+            CustomForm(
+              field: 'Bank Account Owner',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: accountOwnerController,
+                caps: TextCapitalization.words,
+                hintText: "Type your bank account owner",
+                validator: invalidAccountOwner,
+              ),
+            ),
+            SizedBox(height: 16),
+            CustomForm(
+              field: 'Bank Account Number',
+              child: CustomTextField(
+                marginLeft: 16,
+                controller: accountNumberController,
+                caps: TextCapitalization.words,
+                hintText: "Type your bank account number",
+                validator: invalidAccountNumber,
+              ),
             ),
             Container(
               width: 150,
@@ -237,9 +210,13 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                     Profile(
                       name: nameController.text,
                       description: descController.text,
-                      phone: phoneController.text,
-                      email: emailController.text,
+                      phone: phoneController.text.trim(),
+                      email: emailController.text.trim(),
                       address: addressController.text,
+                      bankAccount: BankAccount(
+                        owner: accountOwnerController.text,
+                        number: accountNumberController.text.trim(),
+                      ),
                     ),
                     file: imageFile,
                   );

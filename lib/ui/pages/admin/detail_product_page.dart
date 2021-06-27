@@ -70,15 +70,15 @@ class DetailProductPage extends StatelessWidget {
           children: [
             Text(product.name, style: poppins.copyWith(fontSize: 24)),
             SizedBox(height: defMargin),
-            Text(
-              'product.description',
-              style: poppins,
-              maxLines: 10,
-              overflow: TextOverflow.ellipsis,
+            OptionListItem(
+              tag: 'product',
+              product: product,
             ),
             SizedBox(height: 40),
             Text(
-              'Price : IDR {product.price1} - {product.price2}',
+              Currency.format(product.options.first.price) +
+                  ' - ' +
+                  Currency.format(product.options.last.price),
               style: poppins.copyWith(fontSize: 18),
             ),
           ],

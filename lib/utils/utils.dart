@@ -6,3 +6,4 @@ import 'package:supercharged/supercharged.dart';
 part 'theme.dart';
 part 'screen.dart';
 part 'currency.dart';
+part 'check.dart';

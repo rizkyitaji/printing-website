@@ -74,17 +74,6 @@ class _OrderListPageState extends State<OrderListPage> {
             },
           ),
         ),
-        // SizedBox(height: defMargin),
-        // filter
-        // Container(
-        //   child: CustomTabBar(
-        //     titles: ['New Order', 'In Progress', 'Past Order'],
-        //     selectedIndex: selectedIndex,
-        //     onTap: (index) {
-        //       setState(() => selectedIndex = index);
-        //     },
-        //   ),
-        // ),
         // list
         Container(
           margin: EdgeInsets.all(Screen.isMobile(context) ? defMargin : 40),

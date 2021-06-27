@@ -103,14 +103,12 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(order.product.name, style: poppins.copyWith(fontSize: 24)),
-            Text(
-              'order.product.description',
-              maxLines: 3,
-              style: poppins.copyWith(color: Colors.black),
-              overflow: TextOverflow.ellipsis,
+            OptionListItem(
+              tag: 'order',
+              product: order.product,
             ),
             Text(
-              'Total Order  :  ${order.quantity} item(s) / {order.total1} - {order.total2}',
+              'Total Order  :  ${order.quantity} item(s) - ${Currency.format(order.product.option.price)}',
               style: poppins.copyWith(fontSize: 16),
             ),
             Row(

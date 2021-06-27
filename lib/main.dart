@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/addProduct', page: () => AddProductPage()),
         GetPage(name: '/companyProfile', page: () => CompanyProfilePage()),
       ],
-      initialRoute: '/payment',
+      initialRoute: '/',
       defaultTransition: Transition.fadeIn,
     );
   }

@@ -89,10 +89,9 @@ class _AddProductPageState extends State<AddProductPage> {
                           variant3Controller.text.isEmpty ||
                           picturePath == null) {
                         Toast.show('Please fill in all of the fields', context);
-                      } else if (!Check.isAlphanumeric(
-                              variant1Controller.text) ||
-                          !Check.isAlphanumeric(variant2Controller.text) ||
-                          !Check.isAlphanumeric(variant3Controller.text)) {
+                      } else if (Check.isNumeric(variant1Controller.text) ||
+                          Check.isNumeric(variant2Controller.text) ||
+                          Check.isNumeric(variant3Controller.text)) {
                         Toast.show(
                             'Variant price must contain only number', context);
                       } else {

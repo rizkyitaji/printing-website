@@ -17,25 +17,10 @@ class ProfileServices {
     try {
       if (file != null) {
         ApiReturnValue<String> result = await uploadImage(file);
-
-        profileRef.doc('Company').set({
-          'name': profile.name,
-          'description': profile.description,
-          'picturePath': result.value,
-          'phone': profile.phone,
-          'email': profile.email,
-          'address': profile.address,
-          'bankAccount': profile.bankAccount.toMap(),
-        });
+        Profile value = profile.copyWith(picturePath: result.value);
+        profileRef.doc('Company').set(value.toMap());
       } else {
-        profileRef.doc('Company').set({
-          'name': profile.name,
-          'description': profile.description,
-          'phone': profile.phone,
-          'email': profile.email,
-          'address': profile.address,
-          'bankAccount': profile.bankAccount.toMap(),
-        });
+        profileRef.doc('Company').set(profile.toMap());
       }
 
       return ApiReturnValue(

@@ -47,6 +47,8 @@ class ProductServices {
   static Future<ApiReturnValue<bool>> delete(String id) async {
     try {
       productRef.doc(id).delete();
+
+      //delete pic
       return ApiReturnValue(value: true);
     } catch (e) {
       return ApiReturnValue(message: e);

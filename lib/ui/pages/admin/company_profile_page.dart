@@ -26,14 +26,14 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
   @override
   void initState() {
     super.initState();
-    // picturePath = profileController.profile.picturePath;
-    // nameController.text = profileController.profile.name;
-    // descController.text = profileController.profile.description;
-    // phoneController.text = profileController.profile.phone;
-    // emailController.text = profileController.profile.email;
-    // addressController.text = profileController.profile.address;
-    // accountOwnerController.text = profileController.profile.bank.name;
-    // bankAccountController.text = profileController.profile.bank.account;
+    picturePath = profileController.profile.picturePath;
+    nameController.text = profileController.profile.name;
+    descController.text = profileController.profile.description;
+    phoneController.text = profileController.profile.phone;
+    emailController.text = profileController.profile.email;
+    addressController.text = profileController.profile.address;
+    accountOwnerController.text = profileController.profile.bankAccount.owner;
+    accountNumberController.text = profileController.profile.bankAccount.number;
   }
 
   @override
@@ -194,6 +194,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                 marginLeft: 16,
                 controller: accountNumberController,
                 caps: TextCapitalization.words,
+                type: TextInputType.number,
                 hintText: "Type your bank account number",
                 validator: invalidAccountNumber,
               ),
@@ -206,28 +207,26 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                 style: mainButtonStyle,
                 child: Text('UPDATE'),
                 onPressed: () async {
-                  bool result = await profileController.updateProfile(
-                    Profile(
-                      name: nameController.text,
-                      description: descController.text,
-                      phone: phoneController.text.trim(),
-                      email: emailController.text.trim(),
-                      address: addressController.text,
-                      bankAccount: BankAccount(
-                        owner: accountOwnerController.text,
-                        number: accountNumberController.text.trim(),
-                      ),
-                    ),
-                    file: imageFile,
-                  );
-
-                  String msg = profileController.message;
-
-                  if (result) {
-                    Toast.show(msg, context,
-                        backgroundColor: green, duration: 2);
+                  if (nameController.text.isEmpty) {
+                    setState(() => invalidName = true);
+                  } else if (descController.text.isEmpty) {
+                    setState(() => invalidDesc = true);
+                  } else if (phoneController.text.isEmpty) {
+                    setState(() => invalidPhone = true);
+                  } else if (emailController.text.isEmpty ||
+                      !emailController.text.contains('@')) {
+                    setState(() => invalidEmail = true);
+                  } else if (addressController.text.isEmpty) {
+                    setState(() => invalidAddress = true);
+                  } else if (accountOwnerController.text.isEmpty) {
+                    setState(() => invalidAccountOwner = true);
+                  } else if (accountNumberController.text.isEmpty) {
+                    setState(() => invalidAccountNumber = true);
+                  } else if (Check.isNumeric(phoneController.text) ||
+                      Check.isNumeric(accountNumberController.text)) {
+                    Toast.show('Please input numbers only!', context);
                   } else {
-                    Toast.show(msg, context, backgroundColor: red, duration: 2);
+                    updateProfile();
                   }
                 },
               ),
@@ -236,5 +235,31 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
         ),
       ),
     );
+  }
+
+  void updateProfile() async {
+    bool result = await profileController.updateProfile(
+      Profile(
+        name: nameController.text,
+        description: descController.text,
+        picturePath: picturePath,
+        phone: phoneController.text.trim(),
+        email: emailController.text.trim(),
+        address: addressController.text,
+        bankAccount: BankAccount(
+          owner: accountOwnerController.text,
+          number: accountNumberController.text.trim(),
+        ),
+      ),
+      file: imageFile,
+    );
+
+    String msg = profileController.message;
+
+    if (result) {
+      Toast.show(msg, context, backgroundColor: green, duration: 2);
+    } else {
+      Toast.show(msg, context, backgroundColor: red, duration: 2);
+    }
   }
 }

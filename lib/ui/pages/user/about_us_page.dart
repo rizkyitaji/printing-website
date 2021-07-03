@@ -28,7 +28,11 @@ class AboutUsPage extends StatelessWidget {
           padding: EdgeInsets.all(40),
           child: Column(
             children: [
-              Text(lorem, style: poppins, textAlign: TextAlign.center),
+              Text(
+                '${profileController.profile.description}',
+                style: poppins,
+                textAlign: TextAlign.center,
+              ),
               SizedBox(height: 40),
               Text('Our Clients :', style: poppins.copyWith(fontSize: 16)),
               SizedBox(height: defMargin),

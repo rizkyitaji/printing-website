@@ -19,6 +19,25 @@ class Profile extends Equatable {
     this.bankAccount,
   });
 
+  Profile copyWith({
+    String name,
+    String description,
+    String picturePath,
+    String phone,
+    String email,
+    String address,
+    BankAccount bankAccount,
+  }) =>
+      Profile(
+        name: name ?? this.name,
+        description: description ?? this.description,
+        picturePath: picturePath ?? this.picturePath,
+        phone: phone ?? this.phone,
+        email: email ?? this.email,
+        address: address ?? this.address,
+        bankAccount: bankAccount ?? this.bankAccount,
+      );
+
   factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
     return Profile(
       name: snapshot['name'],
@@ -29,6 +48,18 @@ class Profile extends Equatable {
       address: snapshot['address'],
       bankAccount: BankAccount.fromMap(snapshot['bankAccount']),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': this.name,
+      'description': this.description,
+      'picturePath': this.picturePath,
+      'phone': this.phone,
+      'email': this.email,
+      'address': this.address,
+      'bankAccount': this.bankAccount.toMap(),
+    };
   }
 
   @override

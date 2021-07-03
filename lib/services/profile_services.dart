@@ -12,6 +12,19 @@ class ProfileServices {
     }
   }
 
+  static Future<ApiReturnValue<List<Pictures>>> getSliders() async {
+    var ref = firestore.collection('Sliders');
+
+    try {
+      var pictures = await ref.get().then((value) {
+        return value.docs.map((e) => Pictures.fromMap(e.data())).toList();
+      });
+      return ApiReturnValue(value: pictures);
+    } catch (e) {
+      return ApiReturnValue(message: e);
+    }
+  }
+
   static Future<ApiReturnValue<bool>> updateProfile(Profile profile,
       {PickedFile file}) async {
     try {

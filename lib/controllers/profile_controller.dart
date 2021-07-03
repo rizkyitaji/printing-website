@@ -2,6 +2,7 @@ part of 'controllers.dart';
 
 class ProfileController extends GetxController {
   final _profile = Profile().obs;
+  final pictures = <Pictures>[].obs;
   String message;
 
   Profile get profile => this._profile.value;
@@ -14,6 +15,16 @@ class ProfileController extends GetxController {
 
     if (result.value != null) {
       _profile.value = result.value;
+    } else {
+      message = result.message;
+    }
+  }
+
+  void getSliders() async {
+    ApiReturnValue<List<Pictures>> result = await ProfileServices.getSliders();
+
+    if (result.value != null) {
+      pictures.value = result.value;
     } else {
       message = result.message;
     }

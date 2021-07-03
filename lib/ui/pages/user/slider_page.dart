@@ -18,8 +18,8 @@ class _SliderPageState extends State<SliderPage> {
         horizontal: Screen.small(context) ? defMargin : 100,
         vertical: 40,
       ),
-      child: GetBuilder<ProductController>(
-        init: ProductController(),
+      child: GetBuilder<ProfileController>(
+        init: ProfileController(),
         builder: (state) {
           return Column(
             children: [
@@ -44,17 +44,18 @@ class _SliderPageState extends State<SliderPage> {
                     child: CarouselSlider(
                       carouselController: controller,
                       options: CarouselOptions(
-                          height: Screen.small(context) ? 250 : 400,
-                          initialPage: 0,
-                          viewportFraction: 1.0,
-                          onPageChanged: (index, reason) {
-                            setState(() => current = index);
-                          }),
-                      items: state.products
+                        height: Screen.small(context) ? 250 : 400,
+                        initialPage: 0,
+                        viewportFraction: 1.0,
+                        onPageChanged: (index, reason) {
+                          setState(() => current = index);
+                        },
+                      ),
+                      items: state.pictures
                           .map((e) => Container(
                                 width: double.infinity,
                                 child: Image.network(
-                                  e.picturePath,
+                                  e.path,
                                   fit: BoxFit.fill,
                                 ),
                               ))
@@ -76,8 +77,8 @@ class _SliderPageState extends State<SliderPage> {
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: state.products.map((e) {
-                  int index = state.products.indexOf(e);
+                children: state.pictures.map((e) {
+                  int index = state.pictures.indexOf(e);
                   double size = Screen.small(context) ? 30 : 40;
                   return InkWell(
                     onTap: () => controller.jumpToPage(index),
@@ -90,7 +91,7 @@ class _SliderPageState extends State<SliderPage> {
                             color: index == current ? darkBlue : Colors.white),
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: NetworkImage(e.picturePath),
+                          image: NetworkImage(e.path),
                           fit: BoxFit.cover,
                         ),
                       ),

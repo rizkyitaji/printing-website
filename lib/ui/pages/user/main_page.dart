@@ -15,6 +15,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     profileController.getProfile();
+    profileController.getSliders();
     productController.getProducts();
     scrollController = AutoScrollController(
       viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, 0),

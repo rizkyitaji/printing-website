@@ -39,14 +39,18 @@ class Profile extends Equatable {
       );
 
   factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
+    return Profile.fromMap(snapshot.data());
+  }
+
+  factory Profile.fromMap(Map<String, dynamic> map) {
     return Profile(
-      name: snapshot['name'],
-      description: snapshot['description'],
-      picturePath: snapshot['picturePath'],
-      phone: snapshot['phone'],
-      email: snapshot['email'],
-      address: snapshot['address'],
-      bankAccount: BankAccount.fromMap(snapshot['bankAccount']),
+      name: map['name'],
+      description: map['description'],
+      picturePath: map['picturePath'],
+      phone: map['phone'],
+      email: map['email'],
+      address: map['address'],
+      bankAccount: BankAccount.fromMap(map['bankAccount']),
     );
   }
 
@@ -92,4 +96,21 @@ class BankAccount extends Equatable {
 
   @override
   List<Object> get props => [owner, number];
+}
+
+class Pictures extends Equatable {
+  final int id;
+  final String path;
+
+  Pictures({this.id, this.path});
+
+  factory Pictures.fromMap(Map<String, dynamic> map) {
+    return Pictures(
+      id: map['id'],
+      path: map['path'],
+    );
+  }
+
+  @override
+  List<Object> get props => [id, path];
 }

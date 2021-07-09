@@ -6,8 +6,7 @@ class OrderServices {
     String id = '${order.user.email}_${order.date.millisecondsSinceEpoch}';
 
     try {
-      ApiReturnValue<String> result =
-          await ProductServices.uploadImage(file, id);
+      ApiReturnValue<String> result = await Storage.uploadImage(file, id);
 
       orderRef.doc(id).set({
         'id': id,
@@ -57,6 +56,8 @@ class OrderServices {
   static Future<ApiReturnValue<bool>> delete(String id) async {
     try {
       orderRef.doc(id).delete();
+      Storage.ref(id).delete();
+
       return ApiReturnValue(value: true);
     } catch (e) {
       return ApiReturnValue(message: e);

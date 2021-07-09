@@ -29,7 +29,7 @@ class ProfileServices {
       {PickedFile file}) async {
     try {
       if (file != null) {
-        ApiReturnValue<String> result = await uploadImage(file);
+        ApiReturnValue<String> result = await Storage.uploadImage(file, 'logo');
         Profile value = profile.copyWith(picturePath: result.value);
         profileRef.doc('Company').set(value.toMap());
       } else {
@@ -43,19 +43,5 @@ class ProfileServices {
     } catch (e) {
       return ApiReturnValue(message: e);
     }
-  }
-
-  static Future<ApiReturnValue<String>> uploadImage(PickedFile file) async {
-    Reference ref = FirebaseStorage.instance.ref('images/logo.jpg');
-
-    var imageFile = await file.readAsBytes();
-    UploadTask task =
-        ref.putData(imageFile, SettableMetadata(contentType: 'image/jpeg'));
-
-    String url = await task.then((value) {
-      return value.ref.getDownloadURL();
-    });
-
-    return ApiReturnValue(value: url);
   }
 }

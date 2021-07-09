@@ -87,7 +87,7 @@ class _OrderListPageState extends State<OrderListPage> {
             builder: (state) {
               if (state.orders.length != 0) {
                 return Column(
-                  children: state.orders
+                  children: state.orders.reversed
                       .map((e) => Padding(
                             padding: EdgeInsets.only(
                               bottom: e == state.orders.last ? 0 : 10,

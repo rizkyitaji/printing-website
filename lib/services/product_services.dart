@@ -4,7 +4,8 @@ class ProductServices {
   static Future<ApiReturnValue<Product>> addProduct(
       Product product, PickedFile file) async {
     try {
-      ApiReturnValue<String> result = await uploadImage(file, product.name);
+      ApiReturnValue<String> result =
+          await Storage.uploadImage(file, product.name);
 
       productRef.add({}).then(
         (value) => value.set({
@@ -47,8 +48,8 @@ class ProductServices {
   static Future<ApiReturnValue<bool>> delete(String id) async {
     try {
       productRef.doc(id).delete();
+      Storage.ref(id).delete();
 
-      //delete pic
       return ApiReturnValue(value: true);
     } catch (e) {
       return ApiReturnValue(message: e);
@@ -59,20 +60,5 @@ class ProductServices {
     int length = await productRef.get().then((value) => value.docs.length);
 
     return ApiReturnValue(value: length);
-  }
-
-  static Future<ApiReturnValue<String>> uploadImage(
-      PickedFile file, String name) async {
-    Reference ref = FirebaseStorage.instance.ref('images/$name.jpg');
-
-    var imageFile = await file.readAsBytes();
-    UploadTask task =
-        ref.putData(imageFile, SettableMetadata(contentType: 'image/jpeg'));
-
-    String url = await task.then((value) {
-      return value.ref.getDownloadURL();
-    });
-
-    return ApiReturnValue(value: url);
   }
 }

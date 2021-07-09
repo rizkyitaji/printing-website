@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:printing/models/models.dart';
+import 'package:printing/utils/utils.dart';
 
 part 'user_services.dart';
 part 'product_services.dart';

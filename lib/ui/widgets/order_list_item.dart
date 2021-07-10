@@ -69,7 +69,7 @@ class OrderListItem extends StatelessWidget {
             ? InkWell(
                 onTap: () async {
                   ApiReturnValue<bool> result =
-                      await Storage.downloadImage(order.product.picturePath);
+                      await Storage.downloadImage(order.id);
 
                   String msg = result.message;
 

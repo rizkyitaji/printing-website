@@ -18,4 +18,17 @@ class Storage {
 
     return ApiReturnValue(value: url);
   }
+
+  static Future<ApiReturnValue<bool>> downloadImage(String url) async {
+    try {
+      launch(url);
+
+      return ApiReturnValue(
+        value: true,
+        message: "Design has been successfully downloaded",
+      );
+    } catch (e) {
+      return ApiReturnValue(value: false, message: e);
+    }
+  }
 }

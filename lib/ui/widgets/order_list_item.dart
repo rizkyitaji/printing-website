@@ -68,6 +68,28 @@ class OrderListItem extends StatelessWidget {
         userController.user.level.compareTo('admin') == 0
             ? InkWell(
                 onTap: () async {
+                  ApiReturnValue<bool> result =
+                      await Storage.downloadImage(order.product.picturePath);
+
+                  String msg = result.message;
+
+                  if (result.value) {
+                    Toast.show(msg, context, backgroundColor: green);
+                  } else {
+                    print(msg);
+                    Toast.show('Download failed', context,
+                        backgroundColor: red);
+                  }
+                },
+                child: Icon(Icons.file_download),
+              )
+            : SizedBox(),
+        SizedBox(
+          width: userController.user.level.compareTo('user') == 0 ? 0 : 12,
+        ),
+        userController.user.level.compareTo('admin') == 0
+            ? InkWell(
+                onTap: () async {
                   bool result = await orderController.delete(order.id);
 
                   if (result) {

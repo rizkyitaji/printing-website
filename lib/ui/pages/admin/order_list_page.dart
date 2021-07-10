@@ -90,7 +90,7 @@ class _OrderListPageState extends State<OrderListPage> {
                   children: state.orders.reversed
                       .map((e) => Padding(
                             padding: EdgeInsets.only(
-                              bottom: e == state.orders.last ? 0 : 10,
+                              bottom: e == state.orders.first ? 0 : 10,
                             ),
                             child: InkWell(
                               onTap: () =>

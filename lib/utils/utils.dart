@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:printing/models/models.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'theme.dart';
 part 'screen.dart';

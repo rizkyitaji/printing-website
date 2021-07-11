@@ -1,3 +1,4 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'dart:convert';
 import 'package:firebase_storage/firebase_storage.dart';

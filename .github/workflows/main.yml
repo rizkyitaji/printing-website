@@ -1,4 +1,4 @@
-name: Build and Release APK
+name: Build and Deploy Website
 on: push
 jobs:
     hosting:

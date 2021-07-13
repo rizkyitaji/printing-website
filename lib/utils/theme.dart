@@ -2,7 +2,7 @@ part of 'utils.dart';
 
 const double defMargin = 24;
 
-Color blue = Colors.blue;
+Color blue = Colors.amber;
 Color darkBlue = Colors.blue[800];
 Color grey = '8D92A3'.toColor();
 Color green = '1ABC9C'.toColor();

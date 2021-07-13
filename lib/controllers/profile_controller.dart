@@ -3,10 +3,14 @@ part of 'controllers.dart';
 class ProfileController extends GetxController {
   final _profile = Profile().obs;
   final pictures = <Pictures>[].obs;
+  final _index = 0.obs;
   String message;
 
   Profile get profile => this._profile.value;
   set profile(Profile value) => this._profile.value = value;
+
+  int get index => this._index.value;
+  set index(int value) => this._index.value = value;
 
   void clear() => _profile.value = Profile();
 

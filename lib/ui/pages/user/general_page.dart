@@ -87,7 +87,7 @@ class _GeneralPageState extends State<GeneralPage> {
       return Drawer(
         child: Stack(
           children: [
-            Container(color: Colors.lightBlue[100]),
+            Container(color: blue),
             ListView(
               children: [
                 DrawerHeader(
@@ -101,7 +101,6 @@ class _GeneralPageState extends State<GeneralPage> {
                   child: SizedBox(),
                 ),
                 ListTile(
-                  tileColor: blue,
                   title: Text('Home', style: whiteFontStyle),
                   onTap: () {
                     if (widget.isHome) {
@@ -113,9 +112,11 @@ class _GeneralPageState extends State<GeneralPage> {
                     }
                   },
                 ),
-                SizedBox(height: 1),
+                Container(
+                  height: 0.5,
+                  color: Colors.white,
+                ),
                 ListTile(
-                  tileColor: blue,
                   title: Text('Products', style: whiteFontStyle),
                   onTap: () {
                     if (widget.isHome) {
@@ -127,10 +128,12 @@ class _GeneralPageState extends State<GeneralPage> {
                     }
                   },
                 ),
-                SizedBox(height: 1),
+                Container(
+                  height: 0.5,
+                  color: Colors.white,
+                ),
                 userController.login
                     ? ListTile(
-                        tileColor: blue,
                         title: Text('Order', style: whiteFontStyle),
                         onTap: () {
                           if (widget.isHome) {
@@ -143,9 +146,11 @@ class _GeneralPageState extends State<GeneralPage> {
                         },
                       )
                     : SizedBox(),
-                SizedBox(height: userController.login ? 1 : 0),
+                Container(
+                  height: userController.login ? 0.5 : 0,
+                  color: Colors.white,
+                ),
                 ListTile(
-                  tileColor: blue,
                   title: Text('About Us', style: whiteFontStyle),
                   onTap: () {
                     int index = userController.login ? 3 : 2;
@@ -158,9 +163,11 @@ class _GeneralPageState extends State<GeneralPage> {
                     }
                   },
                 ),
-                SizedBox(height: 1),
+                Container(
+                  height: 0.5,
+                  color: Colors.white,
+                ),
                 ListTile(
-                  tileColor: blue,
                   title: Text('Contact', style: whiteFontStyle),
                   onTap: () {
                     int index = userController.login ? 4 : 3;
@@ -173,10 +180,12 @@ class _GeneralPageState extends State<GeneralPage> {
                     }
                   },
                 ),
-                SizedBox(height: 1),
+                Container(
+                  height: userController.login ? 0.5 : 0,
+                  color: Colors.white,
+                ),
                 userController.login
                     ? ListTile(
-                        tileColor: blue,
                         title: Text('Profile', style: whiteFontStyle),
                         onTap: () => Get.toNamed('/profile'),
                       )

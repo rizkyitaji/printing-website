@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
                   title: 'Users',
                   icon: Icons.people,
                   length: userController.count,
+                  onTap: () => profileController.index = 1,
                 );
               }),
               Obx(() {
@@ -54,6 +55,7 @@ class HomePage extends StatelessWidget {
                   title: 'Products',
                   icon: Icons.view_list,
                   length: productController.count,
+                  onTap: () => profileController.index = 2,
                 );
               }),
               Obx(() {
@@ -63,6 +65,7 @@ class HomePage extends StatelessWidget {
                   title: 'Orders',
                   icon: Icons.list_alt,
                   length: orderController.count,
+                  onTap: () => profileController.index = 3,
                 );
               }),
               cardMenu(

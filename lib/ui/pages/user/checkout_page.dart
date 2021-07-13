@@ -95,7 +95,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
           height: 250,
           decoration: boxDecoration(),
           child: picturePath == null
-              ? Icon(Icons.add_circle, size: 60, color: grey)
+              ? Container(
+                  width: Screen.small(context) ? double.infinity : 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add_circle, size: 30, color: grey),
+                      SizedBox(width: 8),
+                      Text(
+                        'Upload your design here',
+                        style: poppins.copyWith(color: grey),
+                      )
+                    ],
+                  ),
+                )
               : SizedBox(),
         ),
       ),

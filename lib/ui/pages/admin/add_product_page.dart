@@ -24,9 +24,9 @@ class _AddProductPageState extends State<AddProductPage> {
     'More than 4 colors',
   ];
   List<String> sizeVariant = [
-    '15 x 15 cm',
-    '15 x 15 cm',
-    '15 x 15 cm',
+    '15 x 20 cm',
+    '20 x 25 cm',
+    '25 x 30 cm',
   ];
 
   @override

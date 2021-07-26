@@ -1,7 +1,7 @@
 part of 'controllers.dart';
 
 class ProductController extends GetxController {
-  List<Product> products = [];
+  List<Product> products = <Product>[].obs;
   final _option = Option().obs;
   final _count = 0.obs;
   String message;
@@ -23,7 +23,7 @@ class ProductController extends GetxController {
         await ProductServices.addProduct(product, file);
 
     if (result.value != null) {
-      update();
+      products.add(result.value);
       message = result.message;
       return true;
     } else {
@@ -56,6 +56,7 @@ class ProductController extends GetxController {
     ApiReturnValue<bool> result = await ProductServices.delete(id);
 
     if (result.value != null) {
+      products.removeWhere((element) => element.id == id);
       update();
       return result.value;
     } else {

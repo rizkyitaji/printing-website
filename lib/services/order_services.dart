@@ -56,7 +56,7 @@ class OrderServices {
   static Future<ApiReturnValue<bool>> delete(String id) async {
     try {
       orderRef.doc(id).delete();
-      Storage.ref(id).delete();
+      // await Storage.ref(id).delete();
 
       return ApiReturnValue(value: true);
     } catch (e) {

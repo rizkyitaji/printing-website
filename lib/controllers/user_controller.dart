@@ -83,6 +83,7 @@ class UserController extends GetxController {
     ApiReturnValue<bool> result = await UserServices.delete(email);
 
     if (result.value != null) {
+      users.removeWhere((element) => element.id == email);
       update();
       return result.value;
     } else {

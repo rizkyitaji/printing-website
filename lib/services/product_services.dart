@@ -15,7 +15,10 @@ class ProductServices {
           'options': product.toListOfMap(),
         }),
       );
-      return ApiReturnValue(value: product, message: 'New product added!');
+      return ApiReturnValue(
+        value: product.copyWith(picturePath: result.value),
+        message: 'New product added!',
+      );
     } catch (e) {
       return ApiReturnValue(message: e);
     }
@@ -33,11 +36,11 @@ class ProductServices {
   }
 
   static Future<ApiReturnValue<List<Product>>> search(String text) async {
-    List<Product> orders = await productRef.get().then((value) {
+    List<Product> products = await productRef.get().then((value) {
       return value.docs.map((e) => Product.fromSnapshot(e)).toList();
     });
 
-    List<Product> query = orders
+    List<Product> query = products
         .where((element) =>
             element.name.toLowerCase().contains(text.toLowerCase()))
         .toList();
@@ -48,7 +51,7 @@ class ProductServices {
   static Future<ApiReturnValue<bool>> delete(String id) async {
     try {
       productRef.doc(id).delete();
-      Storage.ref(id).delete();
+      // await Storage.ref(id).delete();
 
       return ApiReturnValue(value: true);
     } catch (e) {

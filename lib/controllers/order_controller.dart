@@ -75,6 +75,7 @@ class OrderController extends GetxController {
     ApiReturnValue<bool> result = await OrderServices.delete(id);
 
     if (result.value != null) {
+      orders.removeWhere((element) => element.id == id);
       update();
       return result.value;
     } else {
